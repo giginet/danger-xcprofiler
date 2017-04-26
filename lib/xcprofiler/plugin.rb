@@ -42,11 +42,11 @@ module Danger
     end
 
     def thresholds
-      @thresholds || { warn: 100, fail: 500 }
+      @thresholds || { warn: 50, fail: 100 }
     end
 
     def inline_mode
-      return !!@inline_mode if @inline_mode
+      return !!@inline_mode unless @inline_mode.nil?
       true
     end
   end
