@@ -2,28 +2,40 @@ require 'xcprofiler'
 require_relative 'danger_reporter'
 
 module Danger
+  # Asserts compilation time of each methods if these are exceeded the specified thresholds
+  # @example Asserting compilation time of 'MyApp'
+  #
+  #          xcprofiler.report 'MyApp'
+  #
+  # @example Define thresholds (ms)
+  #
+  #          xcprofiler.thresholds = { warn: 100, fail: 500 }
+  #          xcprofiler.report 'MyApp'
+  #
+  # @see  giginet/danger-xcprofiler
+  # @tags xcode, ios, danger
   class DangerXcprofiler < Plugin
     # Defines path for working directory
     # Default value is `Dir.pwd`
-    # @params    [String] value
+    # @param     [String] value
     # @return    [String]
-    #
     attr_accessor :working_dir
 
-    # Defines threshold of completion time (ms) to assert warning/failure
+    # Defines threshold of compilation time (ms) to assert warning/failure
     # Default value is `{ warn: 100, fail: 500 }`
     # @param    [Hash<String, String>] value
     # @return   [Hash<String, String>]
-    #
     attr_accessor :thresholds
 
     # Defines if using inline comment to assert
     # Default value is `true`
     # @param    [Boolean] value
     # @return   [Boolean]
-    #
     attr_accessor :inline_mode
 
+    # Search the latest .xcactivitylog by the passing product_name and profile compilation time
+    # @param    [String] product_name Product name for the target project.
+    # @return   [void]
     def report(product_name)
       profiler = Xcprofiler::Profiler.by_product_name(product_name)
       profiler.reporters = [
