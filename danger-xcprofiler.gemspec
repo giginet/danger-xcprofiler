@@ -1,4 +1,5 @@
 # coding: utf-8
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'xcprofiler/gem_version.rb'
@@ -8,12 +9,12 @@ Gem::Specification.new do |spec|
   spec.version       = Xcprofiler::VERSION
   spec.authors       = ['giginet']
   spec.email         = ['giginet.net@gmail.com']
-  spec.description   = %q{A short description of danger-xcprofiler.}
-  spec.summary       = %q{A longer description of danger-xcprofiler.}
+  spec.description   = 'A short description of danger-xcprofiler.'
+  spec.summary       = 'A longer description of danger-xcprofiler.'
   spec.homepage      = 'https://github.com/Kohki Miki/danger-xcprofiler'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files`.split($/)
+  spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
@@ -29,8 +30,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.4'
 
   # Linting code and docs
-  spec.add_development_dependency "rubocop", "~> 0.41"
-  spec.add_development_dependency "yard", "~> 0.8"
+  spec.add_development_dependency 'rubocop', '~> 0.41'
+  spec.add_development_dependency 'yard', '~> 0.8'
 
   # Makes testing easy via `bundle exec guard`
   spec.add_development_dependency 'guard', '~> 2.14'

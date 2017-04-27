@@ -58,8 +58,8 @@ module Danger
       context 'with threshold' do
         before do
           @xcprofiler.thresholds = {
-              warn: 10,
-              fail: 20
+            warn: 10,
+            fail: 20
           }
         end
 

@@ -3,7 +3,6 @@ require_relative 'danger_reporter'
 
 module Danger
   class DangerXcprofiler < Plugin
-
     # Defines path for working directory
     # Default value is `Dir.pwd`
     # @params    [String] value
@@ -28,7 +27,7 @@ module Danger
     def report(product_name)
       profiler = Xcprofiler::Profiler.by_product_name(product_name)
       profiler.reporters = [
-          DangerReporter.new(@dangerfile, thresholds, inline_mode, working_dir)
+        DangerReporter.new(@dangerfile, thresholds, inline_mode, working_dir)
       ]
       profiler.report!
     rescue Xcprofiler::DerivedDataNotFound, Xcprofiler::BuildFlagIsNotEnabled => e
@@ -46,7 +45,7 @@ module Danger
     end
 
     def inline_mode
-      return !!@inline_mode unless @inline_mode.nil?
+      return false if @inline_mode.nil? == false
       true
     end
   end

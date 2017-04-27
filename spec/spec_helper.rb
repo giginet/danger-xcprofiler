@@ -1,7 +1,7 @@
 require 'pathname'
 ROOT = Pathname.new(File.expand_path('../../', __FILE__))
-$:.unshift((ROOT + 'lib').to_s)
-$:.unshift((ROOT + 'spec').to_s)
+$LOAD_PATH.unshift((ROOT + 'lib').to_s)
+$LOAD_PATH.unshift((ROOT + 'spec').to_s)
 
 require 'bundler/setup'
 require 'pry'
@@ -11,7 +11,7 @@ require 'danger'
 
 # Use coloured output, it's the best.
 RSpec.configure do |config|
-  config.filter_gems_from_backtrace "bundler"
+  config.filter_gems_from_backtrace 'bundler'
   config.color = true
   config.tty = true
 end
@@ -34,7 +34,7 @@ def testing_ui
 
   cork = Cork::Board.new(out: @output)
   def cork.string
-    out.string.gsub(/\e\[([;\d]+)?m/, "")
+    out.string.gsub(/\e\[([;\d]+)?m/, '')
   end
   cork
 end
