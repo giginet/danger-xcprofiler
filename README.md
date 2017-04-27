@@ -1,5 +1,7 @@
 # danger-xcprofiler
 [![Build Status](https://travis-ci.org/giginet/danger-xcprofiler.svg?branch=master)](https://travis-ci.org/giginet/danger-xcprofiler)
+[![Coverage Status](https://coveralls.io/repos/github/giginet/danger-xcprofiler/badge.svg?branch=master)](https://coveralls.io/github/giginet/danger-xcprofiler?branch=master)
+[![Gem Version](https://badge.fury.io/rb/danger-xcprofiler.svg)](https://badge.fury.io/rb/danger-xcprofiler)
 
 [danger](https://github.com/danger/danger) plugin for asserting Swift compilation time.
 
