@@ -6,12 +6,12 @@ require 'xcprofiler/gem_version.rb'
 
 Gem::Specification.new do |spec|
   spec.name          = 'danger-xcprofiler'
-  spec.version       = Xcprofiler::VERSION
+  spec.version       = DangerXcprofiler::VERSION
   spec.authors       = ['giginet']
   spec.email         = ['giginet.net@gmail.com']
-  spec.description   = 'A short description of danger-xcprofiler.'
-  spec.summary       = 'A longer description of danger-xcprofiler.'
-  spec.homepage      = 'https://github.com/Kohki Miki/danger-xcprofiler'
+  spec.description   = 'danger plugin for asserting Swift compilation time.'
+  spec.summary       = spec.description
+  spec.homepage      = 'https://github.com/giginet/danger-xcprofiler'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
