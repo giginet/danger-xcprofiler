@@ -1,15 +1,44 @@
 # danger-xcprofiler
+[![Build Status](https://travis-ci.org/giginet/danger-xcprofiler.svg?branch=master)](https://travis-ci.org/giginet/danger-xcprofiler)
 
-A description of danger-xcprofiler.
+[danger](https://github.com/danger/danger) plugin for asserting Swift compilation time.
+
+See detail for README of [xcprofiler](https://github.com/giginet/xcprofiler).
+
+![](assets/warning.png)
 
 ## Installation
 
-    $ gem install danger-xcprofiler
+Add this line to your Gemfile:
+
+```sh
+gem 'danger-xcprofiler'
+```
 
 ## Usage
 
-    Methods and attributes from this plugin are available in
-    your `Dangerfile` under the `xcprofiler` namespace.
+Just add this line to your Dangerfile:
+
+```ruby
+xcprofiler.report 'MyApp'
+```
+
+If compilation times of each methods are exceeded the thresholds, `danger` adds inline comment to your PR.
+
+Default thresholds is 50ms for warning, 100ms for failure. 
+
+If you want to change thresholds see the following:
+
+```ruby
+# Defines inline_mode
+xcprofiler.inline_mode = false
+# Defines thresholds (ms)
+xcprofiler.thresholds = {
+  warn: 100,
+  fail: 500
+}
+xcprofiler.report 'MyApp'
+```
 
 ## Development
 
