@@ -96,7 +96,7 @@ module Danger
           let(:time1) { 50 }
           it 'asserts warning' do
             @xcprofiler.report(product_name)
-            expect(@dangerfile).to have_received(:warn).with('`doSomething()` takes 50.0 ms to build', {})
+            expect(@dangerfile).to have_received(:warn).with('`doSomething()` in `Source.swift` takes 50.0 ms to build', {})
           end
         end
 
@@ -105,7 +105,7 @@ module Danger
           let(:time1) { 100 }
           it 'asserts failure' do
             @xcprofiler.report(product_name)
-            expect(@dangerfile).to have_received(:fail).with('`doSomething()` takes 100.0 ms to build', {})
+            expect(@dangerfile).to have_received(:fail).with('`doSomething()` in `Source.swift` takes 100.0 ms to build', {})
           end
         end
       end
