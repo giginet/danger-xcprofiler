@@ -14,13 +14,12 @@ module Danger
     def report!(executions)
       executions.each do |execution|
         options = {}
-        message = "`#{execution.method_name}` takes #{execution.time} ms to build"
         if @inline_mode
           options[:file] = relative_path(execution.path)
           options[:line] = execution.line
-        else
-          message = "`#{execution.method_name}` in `#{execution.filename}` takes #{execution.time} ms to build"
         end
+        message = message(execution)
+
         if execution.time >= @thresholds[:fail]
           @dangerfile.fail(message, options)
         elsif execution.time >= @thresholds[:warn]
@@ -30,6 +29,12 @@ module Danger
     end
 
     private
+
+    def message(execution)
+      message = "`#{execution.method_name}` takes #{execution.time} ms to build"
+      return message if @inline_mode
+      "[#{execution.filename}] #{message}"
+    end
 
     def relative_path(path)
       working_dir = Pathname.new(@working_dir)
