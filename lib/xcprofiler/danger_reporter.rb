@@ -18,7 +18,8 @@ module Danger
           options[:file] = relative_path(execution.path)
           options[:line] = execution.line
         end
-        message = "`#{execution.method_name}` takes #{execution.time} ms to build"
+        message = message(execution)
+
         if execution.time >= @thresholds[:fail]
           @dangerfile.fail(message, options)
         elsif execution.time >= @thresholds[:warn]
@@ -28,6 +29,12 @@ module Danger
     end
 
     private
+
+    def message(execution)
+      message = "`#{execution.method_name}` takes #{execution.time} ms to build"
+      return message if @inline_mode
+      "[#{execution.filename}] #{message}"
+    end
 
     def relative_path(path)
       working_dir = Pathname.new(@working_dir)

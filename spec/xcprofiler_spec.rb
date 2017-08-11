@@ -13,8 +13,8 @@ module Danger
       let(:profiler) { Xcprofiler::Profiler.new(derived_data) }
       let(:location) { 'path/to/Source.swift:20:30' }
       let(:method_name) { 'doSomething()' }
-      let(:time0) { 0 }
-      let(:time1) { 0 }
+      let(:time0) { 99.9 }
+      let(:time1) { 100 }
       let(:execution0) { Xcprofiler::Execution.new(time0, location, method_name) }
       let(:execution1) { Xcprofiler::Execution.new(time1, location, method_name) }
 
@@ -45,8 +45,6 @@ module Danger
       end
 
       context 'with very slow execution' do
-        let(:time0) { 99.9 }
-        let(:time1) { 100 }
         it 'asserts failure' do
           @xcprofiler.report(product_name)
           expect(@dangerfile).to have_received(:fail).with('`doSomething()` takes 100.0 ms to build',
@@ -96,16 +94,16 @@ module Danger
           let(:time1) { 50 }
           it 'asserts warning' do
             @xcprofiler.report(product_name)
-            expect(@dangerfile).to have_received(:warn).with('`doSomething()` takes 50.0 ms to build', {})
+            expect(@dangerfile).to have_received(:warn)
+              .with('[Source.swift] `doSomething()` takes 50.0 ms to build', {})
           end
         end
 
         context 'with very slow execution' do
-          let(:time0) { 99.9 }
-          let(:time1) { 100 }
           it 'asserts failure' do
             @xcprofiler.report(product_name)
-            expect(@dangerfile).to have_received(:fail).with('`doSomething()` takes 100.0 ms to build', {})
+            expect(@dangerfile).to have_received(:fail)
+              .with('[Source.swift] `doSomething()` takes 100.0 ms to build', {})
           end
         end
       end
