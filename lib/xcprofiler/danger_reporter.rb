@@ -44,7 +44,7 @@ module Danger
         e.time >= @thresholds[:fail]
       end
 
-      return unless warning_executions.count > 0 || error_executions.count > 0
+      return if warning_executions.empty? && error_executions.empty?
 
       message = "### Xcprofiler found issues\n\n"
       message << markdown_issues(warning_executions, 'Warnings') unless warning_executions.empty?
