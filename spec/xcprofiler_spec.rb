@@ -24,6 +24,7 @@ module Danger
         @xcprofiler.working_dir = ''
         allow(@dangerfile).to receive(:warn)
         allow(@dangerfile).to receive(:fail)
+        allow(@dangerfile).to receive(:markdown)
         allow(Xcprofiler::Profiler).to receive(:by_product_name).with(product_name).and_return(profiler)
         allow(derived_data).to receive(:flag_enabled?).and_return(true)
         allow(derived_data).to receive(:executions).and_return([execution0, execution1])
@@ -92,18 +93,26 @@ module Danger
         context 'with slow execution' do
           let(:time0) { 49.9 }
           let(:time1) { 50 }
+          message = "### Xcprofiler found issues\n\n"
+          message << "#### Warnings\n\n"
+          message << "| File | Line | Method Name | Build Time (ms) |\n"
+          message << "| ---- | ---- | ----------- | --------------- |\n"
+          message << "| Source.swift | 20 | doSomething() | 50.0 |\n"
           it 'asserts warning' do
             @xcprofiler.report(product_name)
-            expect(@dangerfile).to have_received(:warn)
-              .with('[Source.swift] `doSomething()` takes 50.0 ms to build', {})
+            expect(@dangerfile).to have_received(:markdown).with(message, {})
           end
         end
 
         context 'with very slow execution' do
+          message = "### Xcprofiler found issues\n\n"
+          message << "#### Errors\n\n"
+          message << "| File | Line | Method Name | Build Time (ms) |\n"
+          message << "| ---- | ---- | ----------- | --------------- |\n"
+          message << "| Source.swift | 20 | doSomething() | 100.0 |\n"
           it 'asserts failure' do
             @xcprofiler.report(product_name)
-            expect(@dangerfile).to have_received(:fail)
-              .with('[Source.swift] `doSomething()` takes 100.0 ms to build', {})
+            expect(@dangerfile).to have_received(:markdown).with(message, {})
           end
         end
       end
