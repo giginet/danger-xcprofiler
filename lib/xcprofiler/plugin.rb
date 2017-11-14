@@ -57,8 +57,8 @@ module Danger
     end
 
     def inline_mode
-      return false if @inline_mode.nil? == false
-      true
+      return true if @inline_mode.nil?
+      @inline_mode
     end
   end
 end
