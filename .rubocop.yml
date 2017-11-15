@@ -19,3 +19,6 @@ Metrics/AbcSize:
 
 Lint/DuplicateMethods:
   Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
