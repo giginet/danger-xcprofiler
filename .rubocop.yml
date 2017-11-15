@@ -16,3 +16,6 @@ Style/Documentation:
 
 Metrics/AbcSize:
   Max: 25
+
+Lint/DuplicateMethods:
+  Enabled: false
