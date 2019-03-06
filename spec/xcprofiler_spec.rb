@@ -25,7 +25,7 @@ module Danger
         allow(@dangerfile).to receive(:warn)
         allow(@dangerfile).to receive(:fail)
         allow(@dangerfile).to receive(:markdown)
-        allow(Xcprofiler::Profiler).to receive(:by_product_name).with(product_name).and_return(profiler)
+        allow(Xcprofiler::Profiler).to receive(:by_product_name).with(product_name, nil).and_return(profiler)
         allow(derived_data).to receive(:flag_enabled?).and_return(true)
         allow(derived_data).to receive(:executions).and_return([execution0, execution1])
         [execution0, execution1].each do |execution|
