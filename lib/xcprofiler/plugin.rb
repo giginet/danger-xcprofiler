@@ -12,6 +12,10 @@ module Danger
   #          xcprofiler.thresholds = { warn: 100, fail: 500 }
   #          xcprofiler.report 'MyApp'
   #
+  # @example Specify a custom DerivedData directory
+  #
+  #          xcprofiler.report 'MyApp' './DerivedData'
+  #
   # @see  giginet/danger-xcprofiler
   # @tags xcode, ios, danger
   class DangerXcprofiler < Plugin
@@ -35,9 +39,10 @@ module Danger
 
     # Search the latest .xcactivitylog by the passing product_name and profile compilation time
     # @param    [String] product_name Product name for the target project.
+    # @param    [String] derived_data_path Path to the directory containing the DerivedData.
     # @return   [void]
-    def report(product_name)
-      profiler = Xcprofiler::Profiler.by_product_name(product_name)
+    def report(product_name, derived_data_path = nil)
+      profiler = Xcprofiler::Profiler.by_product_name(product_name, derived_data_path)
       profiler.reporters = [
         DangerReporter.new(@dangerfile, thresholds, inline_mode, working_dir)
       ]
