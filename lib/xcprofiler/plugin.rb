@@ -61,10 +61,6 @@ module Danger
 
     private
 
-    def ignored_files
-      [@ignored_files].flatten.compact
-    end
-
     def working_dir
       @working_dir || Dir.pwd
     end
