@@ -37,6 +37,14 @@ module Danger
     # @return   [Boolean]
     attr_accessor :inline_mode
 
+    # A globbed string or array of strings which should match the files
+    # that you want to ignore warnings on. Defaults to nil.
+    # An example would be `'**/Pods/**'` to ignore warnings in Pods that your project uses.
+    #
+    # @param    [String or [String]] value
+    # @return   [[String]]
+    attr_accessor :ignored_files
+
     # Search the latest .xcactivitylog by the passing product_name and profile compilation time
     # @param    [String] product_name Product name for the target project.
     # @param    [String] derived_data_path Path to the directory containing the DerivedData.
@@ -44,7 +52,7 @@ module Danger
     def report(product_name, derived_data_path = nil)
       profiler = Xcprofiler::Profiler.by_product_name(product_name, derived_data_path)
       profiler.reporters = [
-        DangerReporter.new(@dangerfile, thresholds, inline_mode, working_dir)
+        DangerReporter.new(@dangerfile, thresholds, inline_mode, working_dir, ignored_files)
       ]
       profiler.report!
     rescue Xcprofiler::DerivedDataNotFound, Xcprofiler::BuildFlagIsNotEnabled => e
@@ -52,6 +60,10 @@ module Danger
     end
 
     private
+
+    def ignored_files
+      [@ignored_files].flatten.compact
+    end
 
     def working_dir
       @working_dir || Dir.pwd

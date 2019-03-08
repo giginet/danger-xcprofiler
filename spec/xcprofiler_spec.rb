@@ -1,6 +1,7 @@
 require File.expand_path('spec_helper', __dir__)
 require 'xcprofiler'
 
+# rubocop:disable Metrics/ModuleLength
 module Danger
   describe Danger::DangerXcprofiler do
     it 'should be a plugin' do
@@ -31,6 +32,25 @@ module Danger
         [execution0, execution1].each do |execution|
           allow(execution).to receive(:invalid?).and_return(false)
           allow(execution).to receive(:location).and_return(location)
+        end
+      end
+
+      context 'with ignored files' do
+        let(:time0) { 49.9 }
+        let(:time1) { 50 }
+        it 'skips matching warning' do
+          @xcprofiler.ignored_files = ['path/**']
+          @xcprofiler.report(product_name)
+          expect(@dangerfile).to_not have_received(:warn).with('`doSomething()` takes 50.0 ms to build',
+                                                               file: 'path/to/Source.swift',
+                                                               line: 20)
+        end
+        it 'includes non-matching warning' do
+          @xcprofiler.ignored_files = ['other/path/**']
+          @xcprofiler.report(product_name)
+          expect(@dangerfile).to have_received(:warn).with('`doSomething()` takes 50.0 ms to build',
+                                                           file: 'path/to/Source.swift',
+                                                           line: 20)
         end
       end
 
@@ -119,3 +139,4 @@ module Danger
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
