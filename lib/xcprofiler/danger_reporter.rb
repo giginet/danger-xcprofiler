@@ -3,15 +3,18 @@ require 'pathname'
 
 module Danger
   class DangerReporter < Xcprofiler::AbstractReporter
-    def initialize(dangerfile, thresholds, inline_mode, working_dir)
+    def initialize(dangerfile, thresholds, inline_mode, working_dir, ignored_files)
       super({})
       @dangerfile = dangerfile
       @thresholds = thresholds
       @inline_mode = inline_mode
       @working_dir = working_dir
+      @ignored_files = ignored_files
     end
 
     def report!(executions)
+      executions.reject! { |execution| ignored_files.any? { |pattern| File.fnmatch(pattern, execution.path) } }
+
       if @inline_mode
         inline_report(executions)
       else
@@ -68,6 +71,10 @@ module Danger
       end
 
       message
+    end
+
+    def ignored_files
+      [@ignored_files].flatten.compact
     end
   end
 end
