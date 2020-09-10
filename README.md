@@ -25,6 +25,12 @@ Just add this line to your Dangerfile:
 xcprofiler.report 'MyApp'
 ```
 
+Or specify an xcactivitylog path
+```ruby
+logDir = Dir[File.join('DerivedData/Logs/Build/', '*.xcactivitylog')].first
+xcprofiler.report nil, nil, logDir
+```
+
 If compilation times of each methods are exceeded the thresholds, `danger` adds inline comment to your PR.
 
 Default thresholds is 50ms for warning, 100ms for failure. 
