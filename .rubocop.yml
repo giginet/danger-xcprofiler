@@ -1,3 +1,6 @@
+AllCops:
+  TargetRubyVersion: 2.6
+
 Metrics/ModuleLength:
   Max: 120
 
@@ -22,3 +25,9 @@ Lint/DuplicateMethods:
 
 Style/DoubleNegation:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 10

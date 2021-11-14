@@ -1,8 +1,6 @@
-# coding: utf-8
-
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'xcprofiler/gem_version.rb'
+require 'xcprofiler/gem_version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'danger-xcprofiler'
@@ -18,6 +16,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
+
+  spec.required_ruby_version = '>= 2.6'
 
   spec.add_dependency 'xcprofiler'
   spec.add_runtime_dependency 'danger-plugin-api', '~> 1.0'
