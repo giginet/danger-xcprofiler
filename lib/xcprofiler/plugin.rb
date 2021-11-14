@@ -51,12 +51,11 @@ module Danger
     # @param    [String] log_path Path to the xcactivitylog to process.
     # @return   [void]
     def report(product_name, derived_data_path = nil, log_path = nil)
-
-      if log_path && log_path.end_with?('.xcactivitylog')
-        profiler = Xcprofiler::Profiler.by_path(log_path)
-      else
-        profiler = Xcprofiler::Profiler.by_product_name(product_name, derived_data_path)
-      end
+      profiler = if log_path&.end_with?('.xcactivitylog')
+                   Xcprofiler::Profiler.by_path(log_path)
+                 else
+                   Xcprofiler::Profiler.by_product_name(product_name, derived_data_path)
+                 end
 
       profiler.reporters = [
         DangerReporter.new(@dangerfile, thresholds, inline_mode, working_dir, ignored_files)
