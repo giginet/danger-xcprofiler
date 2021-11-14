@@ -48,9 +48,16 @@ module Danger
     # Search the latest .xcactivitylog by the passing product_name and profile compilation time
     # @param    [String] product_name Product name for the target project.
     # @param    [String] derived_data_path Path to the directory containing the DerivedData.
+    # @param    [String] log_path Path to the xcactivitylog to process.
     # @return   [void]
-    def report(product_name, derived_data_path = nil)
-      profiler = Xcprofiler::Profiler.by_product_name(product_name, derived_data_path)
+    def report(product_name, derived_data_path = nil, log_path = nil)
+
+      if log_path and log_path.end_with?('.xcactivitylog')
+        profiler = Xcprofiler::Profiler.by_path(log_path)
+      else
+        profiler = Xcprofiler::Profiler.by_product_name(product_name, derived_data_path)
+      end
+
       profiler.reporters = [
         DangerReporter.new(@dangerfile, thresholds, inline_mode, working_dir, ignored_files)
       ]
