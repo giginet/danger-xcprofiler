@@ -52,7 +52,7 @@ module Danger
     # @return   [void]
     def report(product_name, derived_data_path = nil, log_path = nil)
 
-      if log_path and log_path.end_with?('.xcactivitylog')
+      if log_path && log_path.end_with?('.xcactivitylog')
         profiler = Xcprofiler::Profiler.by_path(log_path)
       else
         profiler = Xcprofiler::Profiler.by_product_name(product_name, derived_data_path)
