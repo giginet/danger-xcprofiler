@@ -1,5 +1,5 @@
 # danger-xcprofiler
-![GitHub Action](https://github.com/giginet/danger-xcprofiler/actions/workflows/ruby/badge.svg)
+![GitHub Action](https://github.com/giginet/danger-xcprofiler/actions/workflows/ruby.yml/badge.svg)
 [![Gem Version](https://badge.fury.io/rb/danger-xcprofiler.svg)](https://badge.fury.io/rb/danger-xcprofiler)
 
 [danger](https://github.com/danger/danger) plugin for asserting Swift compilation time.
