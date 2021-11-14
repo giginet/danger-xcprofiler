@@ -29,9 +29,6 @@ Gem::Specification.new do |spec|
   # Testing support
   spec.add_development_dependency 'rspec'
 
-  # Calculating code coverage
-  spec.add_development_dependency 'coveralls'
-
   # Linting code and docs
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'yard'
